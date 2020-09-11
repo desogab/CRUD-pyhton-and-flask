@@ -34,7 +34,7 @@ def find_urls(urls):
     links = []
     for link in soup.find_all('a'):
         links.append(link.get('href'))
-    return jsonify(links)
+    return jsonify({"links": links})
 
 
 #Aqui é feito a conversão do documento
