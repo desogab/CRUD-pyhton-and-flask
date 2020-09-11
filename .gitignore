@@ -1,2 +1,2 @@
-#Ignore VENV folder
-venv
+__pycache__
+venv/
