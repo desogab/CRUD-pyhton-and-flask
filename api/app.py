@@ -23,6 +23,10 @@ def index():
     return render_template('home.html')
 
 
+#Esta função tem objetivo de procurar as urls de um determinado site
+#pela tag 'a' e extrair do 'href' e adiciona-los a um array
+#que sera entregue em json
+
 @app.route('/<path:urls>')
 def find_urls(urls):
     html = urllib.request.urlopen(urls)
