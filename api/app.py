@@ -55,7 +55,7 @@ def get_user(id):
     return Response(user, mimetype="application/json", status=200)
 
 
-#A particularidade desta funçaoa baixo 
+#A particularidade desta funçao abaixo 
 #é o elemento spread(**), reduzindo a sintaxe.
 #Ele transforma algo como :
 #   User(name="qualquer",
