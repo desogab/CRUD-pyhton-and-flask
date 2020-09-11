@@ -1,13 +1,13 @@
 #Quando não há um método explícito nas chamadas,
 #o método GET é tomado por padrão.
-
-from flask import Flask, request, Response
-
+from flask import Flask, request, Response, jsonify, render_template
 from database.db import start_db
-
 from database.models import User
-
 import json
+import  bs4, parser, urllib.request
+import re
+from bs4 import BeautifulSoup
+
 
 app = Flask(__name__)
 
@@ -17,10 +17,20 @@ app.config['MONGODB_SETTINGS'] = {
 
 start_db(app)
 
-#não há nenhuma solicitação, somente um print 'API'
+
 @app.route('/')
 def index():
-    return "API"
+    return render_template('home.html')
+
+
+@app.route('/<path:urls>')
+def find_urls(urls):
+    html = urllib.request.urlopen(urls)
+    soup = BeautifulSoup(html.read(), 'html.parser')
+    links = []
+    for link in soup.find_all('a'):
+        links.append(link.get('href'))
+    return jsonify(links)
 
 
 #Aqui é feito a conversão do documento
