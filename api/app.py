@@ -39,6 +39,9 @@ def find_urls(urls):
         links.append(link.get('href'))
     return jsonify({"links": links})
 
+@app.route('/favicon.ico')
+def favicon():
+    return send_from_directory(os.path.join(app.root_path, 'static'), 'favicon.ico', mimetype='image/vnd.microsoft.icon')
 
 #Aqui é feito a conversão do documento
 # que por padrão é um objeto com os
