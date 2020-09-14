@@ -1,13 +1,14 @@
 #Quando não há um método explícito nas chamadas,
 #o método GET é tomado por padrão.
-from flask import Flask, request, Response, jsonify, render_template
+from flask import Flask, request, Response, jsonify, render_template, send_from_directory, url_for
+
 from database.db import start_db
 from database.models import User
-import json
-import  bs4, parser, urllib.request
-import re
+
+from urllib.parse import urljoin
 from bs4 import BeautifulSoup
 
+import json, bs4, parser, urllib.request, re, requests, os
 
 app = Flask(__name__)
 
@@ -29,7 +30,9 @@ def index():
 
 @app.route('/<path:urls>')
 def find_urls(urls):
-    html = urllib.request.urlopen(urls)
+    base_url = 'https://localhost:5000'
+    url = urljoin(base=base_url, url=urls)
+    html = urllib.request.urlopen(url=url)
     soup = BeautifulSoup(html.read(), 'html.parser')
     links = []
     for link in soup.find_all('a'):
